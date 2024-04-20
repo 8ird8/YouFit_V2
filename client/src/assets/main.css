@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    font-display: swap;
+  }
+  /* ListStyles.module.css */
+  
+
+  .markerColor li::marker {
+    color: red; /* Example color */
+  }
+}
