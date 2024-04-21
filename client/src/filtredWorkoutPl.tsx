@@ -168,7 +168,6 @@ const FetchFiltredWorkout = () => {
               nameOfprogram={workout.nameOfprogram}
               description={workout.description}
               thumbnail={`http://localhost:3000/uploads/${workout.thumbnail_W}`}
-              intensity={workout.intensity}
               workoutId={workout._id}
             />
           ))}

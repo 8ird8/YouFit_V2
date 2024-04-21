@@ -30,6 +30,7 @@ import Product from "./productDetails";
 import AdminMeals from "./adminMeals";
 import AdminWorkout from "./AdminWorkout";
 import AdminStore from "./AdminStore";
+import EmailSentNotification from "./SentEmail";
 // import { CartProvider } from "./cartContext";
 
 interface TokenProps {
@@ -164,6 +165,7 @@ const AppRoutes = () => {
         }
       />
       <Route path="/workoutPlans" element={<FetchWorkoutPlans />} />
+      <Route path="/sent" element={<EmailSentNotification />} />
       <Route
         path="/FworkoutPlans"
         element={

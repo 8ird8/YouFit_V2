@@ -14,11 +14,13 @@ const {
   ferchUsers,
   UpdatePassword,
   DeleteUser,
+  resendEmail
 } = require("../controllers/userControler");
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.get("/logout", logoutUser);
+router.get("/resendEmail", resendEmail);
 router.get("/users/:userId/verify/:token", verify);
 router.get("/userbytoken", TokenInfo);
 router.get("/user/:id", CurrentUser);

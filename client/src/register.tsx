@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import { Alert } from "@mui/material";
@@ -17,7 +17,7 @@ const Register = () => {
   const { setNotification, message, type } = useNotification();
 
   const [confirmPassword, setconfirmPassword] = useState("");
-  //const Navigate = useNavigate();
+  const navigate = useNavigate();
   // const [errorMessage, setErrorMessage] = useState<string | null>(null);
   // const [Message, setMessage] = useState<string | null>(null);
 
@@ -37,16 +37,14 @@ const Register = () => {
           // activityLevel: activityLevel,
         },
         {
-          headers: {
-            "Content-Type": "application/json",
-          },
+          withCredentials: true,
         }
       );
 
       if (res.status === 200) {
         // localStorage.setItem("token", res.data.token);
-        // Navigate("/login");
-        setNotification(res.data.message , res.data.type  || "success");
+        navigate("/sent");
+        // setNotification(res.data.message , res.data.type  || "success");
       }
     } catch (error: any) {
       console.error("Error during sign-up:", error);
@@ -55,9 +53,12 @@ const Register = () => {
         error.response.data &&
         error.response.data.message
       ) {
-        setNotification(error.response.data.message, error.response.data.type || "error");
+        setNotification(
+          error.response.data.message,
+          error.response.data.type || "error"
+        );
       } else {
-        setNotification("Error during sign-up" , "error");
+        setNotification("Error during sign-up", "error");
       }
     }
   };

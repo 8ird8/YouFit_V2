@@ -77,7 +77,7 @@ export const Sidebar = () => {
             <Link to="/Admin/WorkoutPlan">
               <div className="flex gap-4">
                 <img
-                  src={`${AssetsUrl}/workout.png`}
+                  src={`${AssetsUrl}/heart.png`}
                   alt=""
                   className="w-8 h-8"
                 />
@@ -140,7 +140,7 @@ export const Sidebar = () => {
             <Link to="/MealsPlans">
               <div className="flex gap-4">
                 <img src={`${AssetsUrl}/view.png`} alt="" className="w-8 h-8" />
-                Add Product
+                User View
               </div>
             </Link>
           </li>

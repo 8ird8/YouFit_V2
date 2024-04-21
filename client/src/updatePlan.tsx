@@ -192,7 +192,7 @@ const UpdateMealPlan = () => {
   };
 
   return (
-    <div className="px-40 bg-white mx-auto  py-8">
+    <div className="px-40  mx-auto  py-8">
       <div className="flex justify-between">
         <button onClick={() => navigate(-1)}>
           <img
@@ -215,123 +215,165 @@ const UpdateMealPlan = () => {
       </div>
       <h1 className="text-xl font-semibold mb-4">Update Meal Plan</h1>
       <form onSubmit={handleSubmit} className="space-y-4 ">
-        <input
-          type="text"
-          placeholder="Meal Plan Name"
-          value={Plan_Name}
-          onChange={(e) => setPlanName(e.target.value)}
-          className="input input-bordered w-full text-black text-2xl"
-        />
-        <textarea
-          placeholder="Description"
-          value={descriptionP}
-          onChange={(e) => setDescriptionP(e.target.value)}
-          className="textarea textarea-bordered w-full border border-black h-28"
-        />
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Total Calories :
-          </label>
-          <input
-            type="text"
-            placeholder="Total Calories"
-            value={totalCalories}
-            onChange={(e) => setTotalCalories(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
+        <div>
+          <label className="text-white font-bold">Meal Plan Name :</label>
+          <div className="border p-2 mt-2">
+            <input
+              type="text"
+              placeholder="Meal Plan Name"
+              value={Plan_Name}
+              onChange={(e) => setPlanName(e.target.value)}
+              className="border p-1 bg-black w-full"
+            />
+          </div>
         </div>
-        <input
-          type="file"
-          ref={fileInputRef}
-          className="file:btn file:btn-primary"
-        />
+        <div>
+          <label className="text-white font-bold">Description :</label>
+          <div className="border  mt-2">
+            <textarea
+              placeholder="Description"
+              value={descriptionP}
+              onChange={(e) => setDescriptionP(e.target.value)}
+              className="bg-black p-2 h-32 w-full"
+            />
+          </div>
+        </div>
+        <div>
+          <label className="text-white font-bold">Total Calories :</label>
+          <div className="border  mt-2">
+            <input
+              type="text"
+              placeholder="Total Calories"
+              value={totalCalories}
+              onChange={(e) => setTotalCalories(e.target.value)}
+              className="bg-black p-2  w-full"
+            />
+          </div>
+        </div>
+        <label className="flex items-center mb-4 mt-6 cursor-pointer">
+          <span className="mr-2 ml-2 mt-2 text-gray-300 font-semibold ">
+            New Thumbnail
+          </span>
+          <img
+            src={`${AssetsUrl}/upload.png`}
+            alt="image"
+            className="w-8 h-8"
+          />
+          <input
+            type="file"
+            className="hidden"
+            accept="image/jpeg, image/png, image/gif"
+            id="image"
+            name="imageUrl"
+            ref={fileInputRef}
+          />
+        </label>
         {dailyMeals.map((day, dayIndex) => (
           <div key={dayIndex} className="border p-4 rounded-lg space-y-2">
-            <h4 className="font-semibold text-black">Day {day.day}</h4>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm  mb-2">
-                Daily calories :
-              </label>
-              <input
-                type="number"
-                placeholder="Day Calories"
-                value={day.calories || ""}
-                onChange={(e) =>
-                  handleChange(dayIndex, 0, e.target.value, "calories")
-                }
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              />
+            <h4 className="font-semibold text-4xl text-center">
+              Day {day.day}
+            </h4>
+            <div>
+              <label className="text-white  ">Day Calories :</label>
+              <div className="border p-2 mt-2">
+                <input
+                  type="number"
+                  placeholder="0"
+                  value={day.calories}
+                  onChange={(e) =>
+                    handleChange(dayIndex, 0, e.target.value, "calories")
+                  }
+                  className="input input-bordered w-full bg-black "
+                />
+              </div>
             </div>
             {day.meals.map((meal, mealIndex) => (
               <div key={mealIndex} className=" border items-center p-2">
-                <input
-                  className="input text-black input-bordered flex-1"
-                  placeholder={`Meal ${mealIndex + 1}`}
-                  value={meal.title || ""}
-                  onChange={(e) =>
-                    handleChange(dayIndex, mealIndex, e.target.value, "title")
-                  }
-                />
-                <textarea
-                  className="textarea border rounded-lg p-2 h-32 textarea-bordered w-full"
-                  placeholder="Description"
-                  value={meal.description || ""}
-                  required
-                  onChange={(e) =>
-                    handleChange(
-                      dayIndex,
-                      mealIndex,
-                      e.target.value,
-                      "description"
-                    )
-                  }
-                />
-                <div className="mb-4">
-                  <label className="block text-gray-700 text-sm  mb-2">
+                <div className="border p-2  bg-black w-full">
+                  <input
+                    className="text-3xl text-white w-full font-semibold flex-1"
+                    placeholder={`Meal ${mealIndex + 1}`}
+                    value={meal.title || ""}
+                    onChange={(e) =>
+                      handleChange(dayIndex, mealIndex, e.target.value, "title")
+                    }
+                  />
+                </div>
+                <div className="mt-4 mb-4">
+                  <label className="text-white font-bold">Content :</label>
+                  <div className="border  mt-2">
+                    <textarea
+                      className="bg-black h-40 p-2 w-full"
+                      value={meal.description}
+                      onChange={(e) =>
+                        handleChange(
+                          dayIndex,
+                          mealIndex,
+                          e.target.value,
+                          "description"
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+                <div className="mt-4 mb-4">
+                  <label className="text-white font-bold">
                     Total protein :
                   </label>
-                  <input
-                    type="number"
-                    placeholder="Protein 'gram' "
-                    value={meal.protein || ""}
-                    onChange={(e) =>
-                      handleChange(
-                        dayIndex,
-                        mealIndex,
-                        e.target.value,
-                        "protein"
-                      )
-                    }
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  />
+                  <div className="border  mt-2">
+                    <input
+                      type="number"
+                      placeholder="'gram'"
+                      value={meal.protein}
+                      onChange={(e) =>
+                        handleChange(
+                          dayIndex,
+                          mealIndex,
+                          e.target.value,
+                          "protein"
+                        )
+                      }
+                      className="p-2 w-full bg-black "
+                    />
+                  </div>
                 </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 text-sm  mb-2">
-                    Total carbs :
-                  </label>
-                  <input
-                    type="number"
-                    placeholder="Carbs 'gram' "
-                    value={meal.carbs || ""}
-                    onChange={(e) =>
-                      handleChange(dayIndex, mealIndex, e.target.value, "carbs")
-                    }
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  />
+                <div className="mt-4 mb-4">
+                  <label className="text-white font-bold">Total carbs :</label>
+                  <div className="border  mt-2">
+                    <input
+                      type="number"
+                      placeholder="Carbs 'gram' "
+                      value={meal.carbs}
+                      onChange={(e) =>
+                        handleChange(
+                          dayIndex,
+                          mealIndex,
+                          e.target.value,
+                          "carbs"
+                        )
+                      }
+                      className="p-2 w-full bg-black "
+                    />
+                  </div>
                 </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 text-sm  mb-2">
-                    Total Fats :
-                  </label>
-                  <input
-                    type="number"
-                    placeholder="Fats 'gram' "
-                    value={meal.fats || ""}
-                    onChange={(e) =>
-                      handleChange(dayIndex, mealIndex, e.target.value, "fats")
-                    }
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  />
+                <div className="mt-4 mb-4">
+                  <label className="text-white font-bold">Total fats :</label>
+                  <div className="border  mt-2">
+                    <input
+                      type="number"
+                      placeholder="Fats 'gram' "
+                      value={meal.fats}
+                      onChange={(e) =>
+                        handleChange(
+                          dayIndex,
+                          mealIndex,
+                          e.target.value,
+                          "fats"
+                        )
+                      }
+                      className="p-2 w-full bg-black "
+                    />
+                  </div>
                 </div>
 
                 <button
@@ -346,9 +388,9 @@ const UpdateMealPlan = () => {
             <button
               type="button"
               onClick={() => handleAddMeal(dayIndex)}
-              className="btn btn-outline btn-accent"
+              className="bg-gray-400 px-6 py-2 text-white"
             >
-              Add Another Meal
+              Add  Meal
             </button>
             <br />
             <div className="flex justify-end">
@@ -366,14 +408,14 @@ const UpdateMealPlan = () => {
           <button
             type="button"
             onClick={handleAddDay}
-            className="btn btn-outline btn-success"
+            className="bg-gray-400 px-6 py-2 text-white"
           >
             Add Day
           </button>
-          <button type="submit" className="btn btn-primary mt-4">
-            Update Meal Plan
-          </button>
         </div>
+        <button type="submit" className="btn w-full btn-primary mt-4">
+          Update Meal Plan
+        </button>
       </form>
     </div>
   );
