@@ -69,13 +69,14 @@ export const UserProvider = ({ children }: Props) => {
   });
 
   const [isLoading, setIsLoading] = useState(true); // Manage loading state
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
 
   const fetchTokenInfo = useCallback(async () => {
     setIsLoading(true); 
     const token = localStorage.getItem("token");
     if (token) {
       try {
-        const res = await axios.get("http://localhost:3000/api/userbytoken", {
+        const res = await axios.get(`${BaseUrl}/api/userbytoken`, {
           withCredentials: true,
         });
 
@@ -93,7 +94,7 @@ export const UserProvider = ({ children }: Props) => {
   const fetchCurrentUser = useCallback(async () => {
     if (TokenInfo.userId) {
       try {
-        const res = await axios.get(`http://localhost:3000/api/user/${TokenInfo.userId}`, {
+        const res = await axios.get(`${BaseUrl}/api/user/${TokenInfo.userId}`, {
           withCredentials: true,
         });
 
