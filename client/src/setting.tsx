@@ -5,6 +5,7 @@ import { UserContext } from "./userContext";
 import Navbar from "./navbar";
 import { useNotification } from "./useNotification";
 import { Alert } from "@mui/material";
+import Footer from "./footer";
 
 const Setting = () => {
   const { fetchTokenInfo, TokenInfo, currentUserInfo, fetchCurrentUser } =
@@ -19,6 +20,7 @@ const Setting = () => {
   const [NewPassword, setNewPassword] = useState("");
   const [ConfirmPassword, setConfirmPassword] = useState("");
   const AssetsUrl = import.meta.env.VITE_ASSETS_URL;
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
   //   const [Message, setMessage] = useState<string | null>(null);
   //   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -44,7 +46,7 @@ const Setting = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:3000/api/user/update/${TokenInfo.userId}`,
+        `${BaseUrl}/api/user/update/${TokenInfo.userId}`,
         formData,
         { withCredentials: true }
       );
@@ -74,7 +76,7 @@ const Setting = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:3000/api/user/update/password/${TokenInfo.userId}`,
+        `${BaseUrl}/api/user/update/password/${TokenInfo.userId}`,
         data, // Send JSON data directly
         {
           withCredentials: true,
@@ -273,6 +275,7 @@ const Setting = () => {
           </div>
         </main>
       </div>
+      <Footer />
     </div>
   );
 };

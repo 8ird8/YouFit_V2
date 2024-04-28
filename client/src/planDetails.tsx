@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
 import DeleteButton from "./deletePlan";
 import { useAuth } from "./useAuth";
+import Footer from "./footer";
 
 interface Meal {
   title: string;
@@ -36,11 +37,14 @@ const MealPlanDetails = () => {
   const { authAdmin } = useAuth();
   const isAdmin = authAdmin && authAdmin.isAdmin;
   const navigate = useNavigate();
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
+
+
   useEffect(() => {
     const fetchMealPlanDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/MealPlan/${planId}`
+          `${BaseUrl}/api/MealPlan/${planId}`
         );
         setMealPlan(response.data.PlanDetail);
       } catch (error) {
@@ -49,7 +53,7 @@ const MealPlanDetails = () => {
     };
 
     fetchMealPlanDetails();
-  }, [planId]);
+  }, [planId ,BaseUrl]);
 
   if (!mealPlan) {
     return (
@@ -60,6 +64,7 @@ const MealPlanDetails = () => {
   }
 
   return (
+    <>
     <div className="max-w-6xl mx-auto p-4">
       <div className="flex justify-between">
         <button onClick={() => navigate(-1)}>
@@ -83,7 +88,7 @@ const MealPlanDetails = () => {
       </div>
       <h1 className="text-5xl mt-10 font-bold mb-4">{mealPlan.Plan_Name}</h1>
       <img
-        src={`http://localhost:3000/uploads/${mealPlan.thumbnail}`}
+        src={`${BaseUrl}/uploads/${mealPlan.thumbnail}`}
         alt="thumbnail"
       />
       <hr className="text-white" />
@@ -144,8 +149,10 @@ const MealPlanDetails = () => {
           </div>
         ))}
       </div>
-      {/* <div>Total Calories: {mealPlan.totalCalories}</div> */}
+      
     </div>
+    <Footer/>
+    </>
   );
 };
 

@@ -16,6 +16,8 @@ const AddListing = () => {
   //   const { setNotification } = useNotification();
   const navigate = useNavigate();
   const AssetsUrl = import.meta.env.VITE_ASSETS_URL;
+  const BasesUrl = import.meta.env.VITE_BASE_URL;
+
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,7 +36,7 @@ const AddListing = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:3000/api/List", formData, {
+      const res = await axios.post(`${BasesUrl}/api/List`, formData, {
         withCredentials: true,
         // headers: {
         //   "Content-Type": "multipart/form-data ",
@@ -115,7 +117,7 @@ const AddListing = () => {
               <label className="text-white  font-bold">Description :</label>
 
               <textarea
-                className="w-full rounded bg-black sec p-3 h-60 border mt-2 outline-none"
+                className="w-full rounded bg-black text-white sec p-3 h-60 border mt-2 outline-none"
                 placeholder="Describe everything about  product here"
                 onChange={(e) => setProduct_D(e.target.value)}
                 required

@@ -15,6 +15,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const { setNotification, message, type } = useNotification();
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
 
   const [confirmPassword, setconfirmPassword] = useState("");
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/register",
+        `${BaseUrl}/api/register`,
         {
           username: username,
           email: email,
@@ -63,10 +64,6 @@ const Register = () => {
     }
   };
 
-  // const handleSignIn = async () => {
-  //   window.location.href = "http://localhost:3000/api/auth/google";
-  // };
-
   const togglePass = () => {
     setVisible(!visible);
   };
@@ -80,16 +77,6 @@ const Register = () => {
             <img src="favicon.png" alt="logo" />
             <div>YOUFit.</div>
           </div>
-          {/* {errorMessage && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded-md mt-4">
-              <strong>{errorMessage}</strong>
-            </div>
-          )}
-          {Message && (
-            <div className="bg-green-500 border border-green-600 text-white px-4 py-2 rounded-md mt-4">
-              <strong>{Message}</strong> 
-            </div>
-          )} */}
           <div className="login-card-header">
             <h1>Sign Up</h1>
             <div>Please Sign Up to use the platform</div>

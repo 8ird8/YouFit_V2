@@ -6,6 +6,8 @@ import WorkoutCard from "./WorkoutCard";
 // import { useNavigate } from "react-router-dom";
 import Navbar from "./navbar";
 import { useFilter } from "./useFilter";
+import { Link } from "react-router-dom";
+import Footer from "./footer";
 
 // Assume this is the path to your component
 interface CardProps {
@@ -21,16 +23,16 @@ const FetchWorkoutPlans = () => {
   const [workoutPlans, setWorkoutPlans] = useState<CardProps[]>([]);
   const { filter, setFilter } = useFilter();
   const { fetchTokenInfo, fetchCurrentUser } = useContext(UserContext);
+  const [search, setSearch] = useState("");
   const { verifySession } = useContext(AuthContext);
-  
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
+
   // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchWorkoutPlans = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/api/WorkoutPlans"
-        );
+        const response = await axios.get(`${BaseUrl}/api/WorkoutPlans`);
         setWorkoutPlans(response.data.WorkoutPLan);
       } catch (error) {
         console.error("Error fetching meal plans:", error);
@@ -45,10 +47,12 @@ const FetchWorkoutPlans = () => {
       const matchesCategory = filter.category
         ? workoutPlan.category === filter.category.toLocaleLowerCase()
         : true;
-      // const matchesSearch = search ? product.product_Name.toLowerCase().includes(search.toLowerCase()) : true;
-      return matchesCategory;
+      const matchesSearch = search
+        ? workoutPlan.nameOfprogram.toLowerCase().includes(search.toLowerCase())
+        : true;
+      return matchesCategory && matchesSearch;
     });
-  }, [workoutPlans, filter.category]);
+  }, [workoutPlans, search, filter.category]);
 
   useEffect(() => {
     fetchCurrentUser();
@@ -62,9 +66,12 @@ const FetchWorkoutPlans = () => {
     setFilter((prev) => ({ ...prev, category }));
   };
 
+  const resetFilter = async () => {
+    setFilter({ category: "" });
+  };
+
   return (
     <>
-    
       <div>
         <div className="relative ">
           <Navbar />
@@ -85,33 +92,35 @@ const FetchWorkoutPlans = () => {
             to push past your current limits, or ready to take on
             professional-grade challenges, we have the perfect plan waiting for
             you. <br /> <br />
-            Choose Your Path: We understand that everyone's fitness journey
-            is unique. That's why we offer four distinct paths to cater to your
+            Choose Your Path: We understand that everyone's fitness journey is
+            unique. That's why we offer four distinct paths to cater to your
             specific needs and goals: <br /> <br />
           </p>
-          <ul className="list-disc markerColor pl-5 space-y-4" >
+          <ul className="list-disc markerColor pl-5 space-y-4">
             <li>
-              <span className="font-bold">Beginner : </span> New to working out? Start here to build a solid
-              foundation with routines that are <br /> as rewarding as they are
-              enjoyable.
+              <span className="font-bold">Beginner : </span> New to working out?
+              Start here to build a solid foundation with routines that are{" "}
+              <br /> as rewarding as they are enjoyable.
             </li>
             <li>
               {" "}
-              <span className="font-bold" >Intermediate:</span> Ready to step it up? These plans will challenge you
-              more while still being <br /> accessible and engaging.
+              <span className="font-bold">Intermediate:</span> Ready to step it
+              up? These plans will challenge you more while still being <br />{" "}
+              accessible and engaging.
             </li>
             <li>
               {" "}
-              <span className="font-bold" >Advanced :</span> For those who are no strangers to fitness and are
-              looking to intensify their regimen.
+              <span className="font-bold">Advanced :</span> For those who are no
+              strangers to fitness and are looking to intensify their regimen.
             </li>
             <li>
-              <span className="font-bold">Pro :</span> Designed for the fitness aficionado seeking the ultimate
-              challenge and the most intense routines.
+              <span className="font-bold">Pro :</span> Designed for the fitness
+              aficionado seeking the ultimate challenge and the most intense
+              routines.
             </li>
           </ul>
-          <p className="mb-12 text-[#f0f8ff] w-full mt-16 leading-relaxed"> 
-             Embark With Confidence: No matter your choice, each program is
+          <p className="mb-12 text-[#f0f8ff] w-full mt-16 leading-relaxed">
+            Embark With Confidence: No matter your choice, each program is
             crafted with the same goal in mind—to inspire, challenge, and
             celebrate your progress. Embrace the journey toward a stronger,
             healthier, and more vibrant you. It's time to make fitness a
@@ -120,17 +129,74 @@ const FetchWorkoutPlans = () => {
             story today!
           </p>
         </div>
-        <div className="flex justify-between rounded-full mx-auto mt-24 p-0 text-white bg-gray-500  w-5/12">
-          {categories.map((category, index) => (
-            <li key={index} className="my-px">
-              <button
-                onClick={() => handleCategoryClick(category)}
-                className=" items-center h-10 px-3 rounded-full hover:bg-gray-950 hover:text-lime-400"
+        <div className="flex p-4 ">
+          <div className="group z-10  border relative">
+            <button className="bg-black border w-full font-semibold py-2 px-4  inline-flex items-center">
+              <span>Select Category</span>
+              <svg
+                className="ml-2 w-4 h-4 bg-black"
+                fill="currentColor"
+                viewBox="0 0 20 20"
               >
-                <p className="ml-3">{category}</p>
-              </button>
-            </li>
-          ))}
+                <path
+                  fillRule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+            <div className="absolute hidden w-full text-white pt-1 group-hover:block">
+              <div className="bg-black rounded shadow-lg">
+                <Link
+                  to="/WorkoutPlans"
+                  className=" bg-black w-full text-center hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                  onClick={resetFilter}
+                >
+                  All
+                </Link>
+                <button
+                  className=" bg-black w-full hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                  onClick={resetFilter}
+                >
+                  All levels
+                </button>
+                {categories.map((category, index) => (
+                  <button
+                    key={index}
+                    className="w-full bg-black  hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                    onClick={() => handleCategoryClick(category)}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="  md:flex border w-1/2  relative">
+            <div className="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+
+            <input
+              id="search"
+              type="text"
+              name="search"
+              className="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-300 w-full h-10 focus:outline-none focus:border-indigo-400"
+              placeholder="Search..."
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
         </div>
 
         <div className="grid mt-20 p-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -139,13 +205,13 @@ const FetchWorkoutPlans = () => {
               key={workout._id}
               nameOfprogram={workout.nameOfprogram}
               description={workout.description}
-              thumbnail={`http://localhost:3000/uploads/${workout.thumbnail_W}`}
-              intensity={workout.intensity}
+              thumbnail={`${BaseUrl}/uploads/${workout.thumbnail_W}`}
               workoutId={workout._id}
             />
           ))}
         </div>
       </div>
+      <Footer />
     </>
   );
 };

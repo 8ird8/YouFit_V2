@@ -6,12 +6,13 @@ import { useNotification } from "./useNotification";
 const VerfyEmail = () => {
   const { userId, token } = useParams();
   const navigate = useNavigate();
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
   const { setNotification } = useNotification();
   useEffect(() => {
     const verifyEmail = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/users/${userId}/verify/${token}`,
+          `${BaseUrl}/api/users/${userId}/verify/${token}`,
           {
             withCredentials: true,
           }

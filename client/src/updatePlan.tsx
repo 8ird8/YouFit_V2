@@ -25,6 +25,7 @@ const UpdateMealPlan = () => {
   const [totalCalories, setTotalCalories] = useState("");
   const [dailyMeals, setDailyMeals] = useState<DailyMeal[]>([]);
   const AssetsUrl = import.meta.env.VITE_ASSETS_URL;
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
   // const [mealNumber, setMealNumber] = useState(1);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -34,7 +35,7 @@ const UpdateMealPlan = () => {
     const fetchMealPlan = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/MealPlan/${planId}`
+          `${BaseUrl}/api/MealPlan/${planId}`
         );
         const planData = response.data.PlanDetail;
         setPlanName(planData.Plan_Name || "");
@@ -71,7 +72,7 @@ const UpdateMealPlan = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/MealPlan/update/${planId}`,
+        `${BaseUrl}/api/MealPlan/update/${planId}`,
         formData,
         {
           headers: {
@@ -101,7 +102,7 @@ const UpdateMealPlan = () => {
     if (isConfirmed) {
       try {
         await axios.delete(
-          `http://localhost:3000/api/MealPlan/${planId}/day/${dayIndex}`
+          `${BaseUrl}/api/MealPlan/${planId}/day/${dayIndex}`
         );
         let updatedDailyMeals = [...dailyMeals];
         updatedDailyMeals.splice(dayIndex, 1);
@@ -147,7 +148,7 @@ const UpdateMealPlan = () => {
         if (!isTemporaryId) {
           // If meal has a permanent ID from the database, proceed to delete it
           await axios.delete(
-            `http://localhost:3000/api/MealPlan/${planId}/day/${dayIndex}/meal/${mealId}`
+            `${BaseUrl}/api/MealPlan/${planId}/day/${dayIndex}/meal/${mealId}`
           );
         }
 
@@ -201,17 +202,6 @@ const UpdateMealPlan = () => {
             alt="arrow-left"
           />
         </button>
-        {/* {isAdmin && (
-          <div className="my-auto flex gap-2 ">
-            <button
-              className=" w-8 h-8  text-black rounded-md "
-              onClick={() => navigate(`/MealsPlans/update/${mealPlan._id}`)}
-            >
-              <img src={`${AssetsUrl}/edit.png`} alt="" />
-            </button>
-            <DeleteButton planId={mealPlan._id} />
-          </div>
-        )} */}
       </div>
       <h1 className="text-xl font-semibold mb-4">Update Meal Plan</h1>
       <form onSubmit={handleSubmit} className="space-y-4 ">

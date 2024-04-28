@@ -28,13 +28,14 @@ const UpdateProduct = () => {
 
   const [mainImage, setMainImage] = useState<string>("");
   const AssetsUrl = import.meta.env.VITE_ASSETS_URL;
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/product/${productId}`,
+          `${BaseUrl}/api/product/${productId}`,
           {
             withCredentials: true,
           }
@@ -61,7 +62,7 @@ const UpdateProduct = () => {
   const handleImageDelete = async (imageName: string) => {
     try {
       await axios.delete(
-        `http://localhost:3000/api/product/${productId}/image/${imageName}`,
+        `${BaseUrl}/api/product/${productId}/image/${imageName}`,
         {
           withCredentials: true,
         }
@@ -82,12 +83,9 @@ const UpdateProduct = () => {
   };
   const handleDelete = async () => {
     try {
-      const res = await axios.delete(
-        `http://localhost:3000/api/delete/${productId}`,
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.delete(`${BaseUrl}/api/delete/${productId}`, {
+        withCredentials: true,
+      });
       if (res.status === 403) {
         console.error("You are not allowed");
       } else {
@@ -117,7 +115,7 @@ const UpdateProduct = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:3000/api/updateProduct/${productId}`,
+        `${BaseUrl}/api/updateProduct/${productId}`,
         formData,
         {
           withCredentials: true,
@@ -135,7 +133,7 @@ const UpdateProduct = () => {
 
   return (
     <div>
-      <section className="py-10 bg-white ">
+      <section className="py-10  ">
         <div className="max-w-6xl px-4 mx-auto">
           <div className="flex   mb-24 -mx-4">
             <div className="w-full px-4 mb-8 md:w-1/2 md:mb-0">
@@ -143,7 +141,7 @@ const UpdateProduct = () => {
                 <div className="relative mb-6 lg:mb-10 lg:h-96">
                   <img
                     className="object-contain w-full lg:h-full"
-                    src={`http://localhost:3000/uploads/${mainImage}`}
+                    src={`${BaseUrl}/uploads/${mainImage}`}
                     alt="Product"
                   />
                 </div>
@@ -157,7 +155,7 @@ const UpdateProduct = () => {
                         >
                           <img
                             className="object-contain w-full lg:h-28"
-                            src={`http://localhost:3000/uploads/${image}`}
+                            src={`${BaseUrl}/uploads/${image}`}
                             alt="Product thumbnail"
                           />
                         </button>
@@ -209,17 +207,20 @@ const UpdateProduct = () => {
               <div className="lg:pl-20">
                 <div className="mb-6  ">
                   <form onSubmit={handleSubmit}>
-                    <label className="max-w-xl mt-8 mb-6 text-2xl font-bold text-gray-700 md:text-2xl">
-                      Product Name :
-                    </label>
-                    <div className="border">
-                      <input
-                        type="text"
-                        name="product_Name"
-                        className="h-10 w-full rounded-xl   p-2 "
-                        value={product_Name}
-                        onChange={(e) => setProductName(e.target.value)}
-                      />
+                    <div>
+                      <label className="max-w-xl mt-8 mb-6 text-2xl font-bold text-white md:text-2xl">
+                        {" "}
+                        Product Name :{" "}
+                      </label>
+                      <div className="border">
+                        <input
+                          type="text"
+                          name="product_Name"
+                          className="h-10 w-full rounded-xl  bg-black  p-2 "
+                          value={product_Name}
+                          onChange={(e) => setProductName(e.target.value)}
+                        />
+                      </div>
                     </div>
                     <button
                       onClick={handleDelete}
@@ -232,11 +233,11 @@ const UpdateProduct = () => {
                       />
                     </button>
                     <div>
-                      <label className="inline-block mt-6 mb-2 text-2xl font-bold text-gray-700">
+                      <label className="inline-block mt-6 mb-2 text-2xl font-bold text-white">
                         Gender :
                       </label>
                       <select
-                        className="title rounded w-full bg-gray-100 border   p-2 mb-4 outline-none"
+                        className="title rounded w-full bg-black border   p-2 mb-4 outline-none"
                         value={product_Gender}
                         onChange={(e) => setproduct_Gender(e.target.value)}
                         required
@@ -249,11 +250,11 @@ const UpdateProduct = () => {
                     </div>
 
                     <div>
-                      <label className="inline-block mt-6 mb-2 text-2xl font-bold text-gray-700">
+                      <label className="inline-block mt-6 mb-2 text-2xl font-bold text-white">
                         Category :
                       </label>
                       <select
-                        className="title rounded w-full bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
+                        className="title rounded w-full bg-black border border-gray-300 p-2 mb-4 outline-none"
                         value={product_Category}
                         onChange={(e) => setProductCategory(e.target.value)}
                         required
@@ -267,40 +268,28 @@ const UpdateProduct = () => {
                         <option value="others">others</option>
                       </select>
                     </div>
-                    <label className="inline-block mt-4 text-2xl font-bold text-gray-700">
+                    <label className="inline-block mt-4 text-2xl font-bold text-white">
                       Price :
                     </label>
                     <div className="border mb-6">
                       <input
                         type="text"
-                        className=" w-full  rounded-xl  border bg-white border-black  p-2"
+                        className=" w-full  rounded-xl  border bg-black border-black  p-2"
                         value={product_Price}
                         onChange={(e) => setProductPrice(e.target.value)}
                       />
                     </div>
 
-                    <label className=" text-md text-2xl capitalize mt-4 font-bold text-gray-700">
-                      Details :
-                    </label>
-                    <div className="mb-6">
-                      <div className="bg-gray-100 rounded-xl">
-                        <div className=" ">
-                          <div className="p-2 rounded-xl lg:p-2 bg-gray-50">
-                            <div className=" h-full w-full gap-x-10 gap-y-4">
-                              <div>
-                                <textarea
-                                  name="product_Description"
-                                  className="w-full border mt-2 rounded-xl p-2 h-36 border-gray-400"
-                                  value={product_Description}
-                                  onChange={(e) =>
-                                    setProductDescription(e.target.value)
-                                  }
-                                ></textarea>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                    <div>
+                      <label className=" text-md text-2xl capitalize mt-4 font-bold text-white">
+                        Details :
+                      </label>
+                      <textarea
+                        name="product_Description"
+                        className="w-full border mt-2  bg-black p-2 h-36 "
+                        value={product_Description}
+                        onChange={(e) => setProductDescription(e.target.value)}
+                      ></textarea>
                     </div>
 
                     <div className="flex gap-6">

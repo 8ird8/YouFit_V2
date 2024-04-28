@@ -36,44 +36,40 @@ const Footer = () => {
                 <li>
                   <a
                     target="_blank"
-                    href="tel:+989353770255"
+                    href="tel:+212654378356"
                     className="footer__link"
                   >
-                    (+98)9353770255
+                    (+212)654378356
                   </a>
                 </li>
                 <li>
-                  <a
+                <a
                     target="_blank"
-                    href="https://www.google.com/maps/place/Piroozi+Metro+Station/@35.6906275,51.4678442,18z/data=!4m5!3m4!1s0x3f8e027b555fc43b:0x1682d8b3b203a6db!8m2!3d35.6910109!4d51.4679227"
+                    href="Email:YoufitGym@gmail.com"
                     className="footer__link"
                   >
-                    MFR9+C5,Piroozi St,
-                    <br />
-                    Farah Abad,
-                    <br />
-                    Tehran, Iran
+                    YoufitGym@gmail.com
                   </a>
                 </li>
               </ul>
             </div>
 
             <div className="footer__content">
-              <h3 className="footer__title">Pricing</h3>
+              <h3 className="footer__title">Service</h3>
               <ul className="footer__list">
                 <li>
                   <a href="#" className="footer__link">
-                    Basic
+                    Meals Program
                   </a>
                 </li>
                 <li>
                   <a href="#" className="footer__link">
-                    Premium
+                    Workout Program
                   </a>
                 </li>
                 <li>
                   <a href="#" className="footer__link">
-                    Diamond
+                    BMI Calculat
                   </a>
                 </li>
               </ul>
@@ -89,17 +85,17 @@ const Footer = () => {
                 </li>
                 <li>
                   <a href="#" className="footer__link">
-                    Careers
+                    Our Program
                   </a>
                 </li>
                 <li>
                   <a href="#" className="footer__link">
-                    Customers
+                   Nutritions
                   </a>
                 </li>
                 <li>
                   <a href="#" className="footer__link">
-                    Partners
+                    bmi
                   </a>
                 </li>
               </ul>

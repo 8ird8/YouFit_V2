@@ -23,11 +23,12 @@ const WorkoutExCard: React.FC<CardProps> = ({
   IsAdmin,
 }) => {
   const navigate = useNavigate();
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
 
   const handleExDelete = async (dayIndex: number, exersiseId: string) => {
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api/WorkoutPlans/${workoutId}/day/${dayIndex}/exersise/${exersiseId}`,
+        `${BaseUrl}/api/WorkoutPlans/${workoutId}/day/${dayIndex}/exersise/${exersiseId}`,
         {
           withCredentials: true,
         }

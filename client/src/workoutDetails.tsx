@@ -33,6 +33,7 @@ const WorkoutPlanDetails = () => {
   const { workoutId } = useParams();
   const navigate = useNavigate();
   const AssetsUrl = import.meta.env.VITE_ASSETS_URL;
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
   const { authAdmin } = useAuth();
   const isAdmin = authAdmin && authAdmin.isAdmin;
   
@@ -41,7 +42,7 @@ const WorkoutPlanDetails = () => {
     const fetchWorkoutPlanDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/WorkoutPlans/${workoutId}`
+          `${BaseUrl}/api/WorkoutPlans/${workoutId}`
         );
         setWorkoutPlan(response.data.WorkoutDetail);
       } catch (error) {
@@ -55,7 +56,7 @@ const WorkoutPlanDetails = () => {
   const handleDelete = async () => {
     try {
       const res = await axios.delete(
-        `http://localhost:3000/api/WorkoutPlans/${workoutId}`,
+        `${BaseUrl}/api/WorkoutPlans/${workoutId}`,
         {
           withCredentials: true,
         }
@@ -109,7 +110,7 @@ const WorkoutPlanDetails = () => {
 
       <div className="mt-10">
         <img
-          src={`http://localhost:3000/uploads/${workoutPlan.thumbnail_W}`}
+          src={`${BaseUrl}/uploads/${workoutPlan.thumbnail_W}`}
           alt="thumbnail"
           className="w-3/4 m-auto  h-thumbnail object-cover"
         />

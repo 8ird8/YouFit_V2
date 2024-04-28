@@ -18,6 +18,7 @@ const Navbar = () => {
   const isAuthenticated = authStatus && authStatus.isAuthenticated;
   const isAdmin = authAdmin && authAdmin.isAdmin;
   const location = useLocation();
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
   const dropdownClasses =
     location.pathname !== "/store"
       ? "dropdown-menu bg-black absolute right-0 top-12 py-2 w-48 rounded-md shadow-xl z-20"
@@ -38,7 +39,7 @@ const Navbar = () => {
       const fetchProducts = async () => {
         try {
           const res = await axios.get(
-            `http://localhost:3000/api/mycart/${TokenInfo.userId}`,
+            `${BaseUrl}/api/mycart/${TokenInfo.userId}`,
             {
               withCredentials: true,
             }
@@ -62,7 +63,7 @@ const Navbar = () => {
   }, [verifyAdmin, token, fetchCurrentUser]);
 
   return (
-    <div className="fixed top-0 right-0  left-0 bg-black  p-4 z-10 text-white  w-full">
+    <div className="fixed top-0 right-0  left-0 bg-black  p-4 z-20 text-white  w-full">
       <div className="mx-auto ">
         <nav className="flex justify-between ">
           <a href="#" className="nav__logo my-auto">
@@ -111,19 +112,7 @@ const Navbar = () => {
 
             <i className="bi bi-x nav__close" id="nav-close"></i>
           </div>
-          {/* <div>
-              <ul className="mt-2">
-                <li>
-                  <Link
-                    to="/login"
-                    className="bg-lime-400 px-8  py-2 border  text-black rounded-full "
-                    id="log-btn"
-                  >
-                    Register Now
-                  </Link>
-                </li>
-              </ul>
-            </div> */}
+        
           <div className="relative flex gap-4 my-auto">
             <button
               className="group inline-flex mb-2 gap-4 items-center cursor-pointer"
@@ -133,7 +122,7 @@ const Navbar = () => {
                 <>
                   <Avatar
                     alt={currentUserInfo.username}
-                    src={`http://localhost:3000/uploads/${currentUserInfo.avatar}`}
+                    src={`${BaseUrl}/uploads/${currentUserInfo.avatar}`}
                     className=" capitalize"
                   />
                   <h4 className="text-lime-400 font-extrabold capitalize tracking-wide ">

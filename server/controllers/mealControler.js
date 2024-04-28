@@ -107,7 +107,7 @@ const FiltredMeals = async (req, res) => {
     } else if (user.goal === "gain weight") {
       if (user.level === "beginner") {
         dailyCaloriesNeeded += 200;
-      } else if (user.level === "Advanced") {
+      } else if (user.level === "advanced") {
         dailyCaloriesNeeded += 300;
       } else if (user.level === "intermidiare") {
         dailyCaloriesNeeded += 400;
@@ -120,7 +120,7 @@ const FiltredMeals = async (req, res) => {
     }
     const Meals = await MealPlan.find().sort({ createdAt: -1 });
 
-    const calorieRange = 500;
+    const calorieRange = 100;
     // const filteredMeals = Meals.filter(
     //   (meal) =>
     //     Math.abs(meal.dailyMeals.calories - dailyCaloriesNeeded) <= calorieRange
@@ -132,9 +132,9 @@ const FiltredMeals = async (req, res) => {
       )
     );
 
-    const responseMeals = filteredMeals.length > 0 ? filteredMeals : Meals;
+    // const responseMeals = filteredMeals.length > 0 ? filteredMeals : Meals;
 
-    return res.status(200).json({ success: true, Meals: responseMeals });
+    return res.status(200).json({ success: true, Meals: filteredMeals });
   } catch (error) {
     console.error("Error fetching meals:", error);
     return res

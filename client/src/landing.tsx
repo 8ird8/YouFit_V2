@@ -12,6 +12,9 @@ const Landing = () => {
   const programRef = useRef(null);
   const btnRef = useRef(null);
   const ChooseRef = useRef(null);
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [message, setMessage] = useState("");
 
   // Register GSAP plugins
   useEffect(() => {
@@ -88,9 +91,9 @@ const Landing = () => {
           duration: 2,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: ImgRef.current, 
+            trigger: ImgRef.current,
             start: "top bottom",
-            end: "bottom top", 
+            end: "bottom top",
             toggleActions: "play none restart none",
           },
         }
@@ -104,15 +107,15 @@ const Landing = () => {
           duration: 3,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: btnRef.current, 
+            trigger: btnRef.current,
             start: "top bottom",
-            end: "bottom top", 
+            end: "bottom top",
             toggleActions: "restart none restart none",
           },
         }
       );
     }
-  }, [isloading]); 
+  }, [isloading]);
 
   if (isloading) {
     return (
@@ -122,6 +125,32 @@ const Landing = () => {
     );
   }
 
+  const calculateBMI = (e:any ) => {
+    e.preventDefault(); // Prevent the form from submitting traditionally
+
+    if (!weight || !height) {
+      setMessage("Please enter some values");
+      return;
+    }
+
+    const heightInMeters = Number(height) / 100;
+    const bmi = Number(weight ) / (heightInMeters * heightInMeters);
+    const formattedBMI = bmi.toFixed(1);
+
+    if (Number(weight) < 0) {
+      setMessage("Negative values not allowed");
+    } else if (heightInMeters <= 0) {
+      setMessage("Please enter a valid height");
+    } else if (bmi <= 18.4) {
+      setMessage(`Your BMI is ${formattedBMI} which means you are Underweight`);
+    } else if (bmi >= 18.5 && bmi <= 24.9) {
+      setMessage(`Your BMI is ${formattedBMI} which means You are Normal`);
+    } else if (bmi >= 25 && bmi <= 29.9) {
+      setMessage(`Your BMI is ${formattedBMI} which means You are Overweight`);
+    } else if (bmi >= 30) {
+      setMessage(`Your BMI is ${formattedBMI} which means You are Obese`);
+    }
+  };
   return (
     <>
       <div className="landing">
@@ -290,12 +319,12 @@ const Landing = () => {
                   </Link>
                 </article>
               </div>
-               <div className="section-data relative -top-16  ">
+              <div className="section-data relative -top-16  ">
                 <Link
                   to="/workoutPlans"
                   className="hover:bg-lime-400  h-20 py-12 w-20 px-1   bg-black text-white  border text-lg   hover:-black rounded-full "
                 >
-                  Explore  More
+                  Explore More
                   {/* <img src="run.png" alt="program button" className="w-7 " /> */}
                 </Link>
               </div>
@@ -501,20 +530,25 @@ const Landing = () => {
               <div className="bmi__container">
                 <div className="bmi__data">
                   <h2 className="section-title">
-                    <span>calculate</span> your bmi
+                    <span>Calculate</span> your BMI
                   </h2>
                   <p className="bmi__description">
                     The body mass index (BMI) calculator calculates body mass
                     index from your weight and height.
                   </p>
 
-                  <form className="bmi__form" id="bmi-form">
+                  <form
+                    className="bmi__form"
+                    id="bmi-form"
+                    onSubmit={calculateBMI}
+                  >
                     <div className="bmi__input">
                       <input
                         type="number"
-                        placeholder="Height"
-                        name=""
+                        placeholder="Height in cm"
                         id="bmi-cm"
+                        value={height}
+                        onChange={(e) => setHeight(e.target.value)}
                       />
                       <label>cm</label>
                     </div>
@@ -522,9 +556,10 @@ const Landing = () => {
                     <div className="bmi__input">
                       <input
                         type="number"
-                        placeholder="Weight"
-                        name=""
+                        placeholder="Weight in kg"
                         id="bmi-kg"
+                        value={weight}
+                        onChange={(e) => setWeight(e.target.value)}
                       />
                       <label>kg</label>
                     </div>
@@ -533,7 +568,9 @@ const Landing = () => {
                       Calculate Now
                     </button>
 
-                    <p className="bmi__message" id="bmi-message"></p>
+                    <p className="bmi__message" id="bmi-message">
+                      {message}
+                    </p>
                   </form>
                 </div>
 
@@ -545,77 +582,68 @@ const Landing = () => {
           <section className="brands section">
             <div className="container">
               <div className="section-data">
-                <h3 className="section-subtitle">Our Partners</h3>
-              </div>
-              <div className="swiper brands__swiper">
-                <div className="swiper-wrapper">
-                  <div className="brands__slide swiper-slide">
-                    <img
-                      className="brands__img"
-                      src="brand1.png"
-                      alt="brand img"
-                    />
-                  </div>
-                  <div className="brands__slide swiper-slide">
-                    <img
-                      className="brands__img"
-                      src="brand2.png"
-                      alt="brand img"
-                    />
-                  </div>
-                  <div className="brands__slide swiper-slide">
-                    <img
-                      className="brands__img"
-                      src="brand3.png"
-                      alt="brand img"
-                    />
-                  </div>
-                  <div className="brands__slide swiper-slide">
-                    <img
-                      className="brands__img"
-                      src="brand4.png"
-                      alt="brand img"
-                    />
-                  </div>
-                  <div className="brands__slide swiper-slide">
-                    <img
-                      className="brands__img"
-                      src="brand5.png"
-                      alt="brand img"
-                    />
-                  </div>
-                  <div className="brands__slide swiper-slide">
-                    <img
-                      className="brands__img"
-                      src="brand6.png"
-                      alt="brand img"
-                    />
-                  </div>
-                  <div className="brands__slide swiper-slide">
-                    <img
-                      className="brands__img"
-                      src="brand7.png"
-                      alt="brand img"
-                    />
-                  </div>
-                  <div className="brands__slide swiper-slide">
-                    <img
-                      className="brands__img"
-                      src="brand8.png"
-                      alt="brand img"
-                    />
-                  </div>
+                <h3 className="section-subtitle">Our Store</h3>
+                <h2 className="section-title">
+                  <span>About Youfit </span> Store?
+                </h2>
+                <div className="w-4/5 m-auto  leading-7">
+                  <p>
+                    <b className="text-white">Nutrition</b> ,Vitamin, food supplements and Whey Protein
+                    Youfit. Shop, Website selling the Best Brands: Sports nutrition,
+                    food supplements and whey protein. proteins, protein gym, dietetics,
+                    bodybuilding, fitness, endurance, CrossFit..
+                    international gym supplement brand.
+                  </p>
                 </div>
               </div>
             </div>
+            <section id="best-selling">
+              <div className="all-cards">
+                <div className="cards">
+                  <img className="selling-img"
+                    src="Whey.jpg"
+                    alt="Whey"
+                  />
+                  <div className="selling-box">
+                    <div className="add-to-cart">
+                    <Link  to="/store" className="btn btn--small">SHOP PAGE</Link>
+                    </div>
+                  </div>
+                </div>
+                <div className="cards">
+                  <img className="selling-img w-full"
+                    src="CLOUTHS.png"
+                    alt="leg-press"
+                    width="250"
+                    height="auto"
+                  />
+                  <div className="selling-box">
+                    <div className="add-to-cart">
+                    <Link  to="/store" className="btn btn--small">SHOP PAGE</Link>
+                    </div>
+                  </div>
+                </div>
+                <div className="cards">
+                  <img className="selling-img w-full h-full"
+                    src="oil.jpg"
+                    alt="dumbbells"
+                    width="250"
+                    height="400"
+                  />
+                  <div className="selling-box">
+                    <div className="add-to-cart">
+                      <Link  to="/store" className="btn btn--small">SHOP PAGE</Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
           </section>
         </main>
 
         <Footer />
 
-        <a href="#" className="scrollup" id="scrollup">
-          <i className="bi bi-arrow-up"></i>
-        </a>
+        
       </div>
     </>
   );

@@ -2,15 +2,10 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Card from "./cardMeals";
 import { AuthContext } from "./authContext";
-// import { UserContext } from "./userContext";
-// import { useNavigate } from "react-router-dom";
 
-// import { useNotification } from "./useNotification";
-// import { Alert } from "@mui/material";
-// import { useAuth } from "./useAuth";
 import { Sidebar } from "./sidebar";
 
-// Assume this is the path to your component
+
 interface CardProps {
   _id: string;
   Plan_Name: string;
@@ -21,13 +16,14 @@ interface CardProps {
 
 const AdminMeals = () => {
   const [mealPlans, setMealPlans] = useState<CardProps[]>([]);
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
 
   const { verifySession } = useContext(AuthContext);
 
   useEffect(() => {
     const AdminMeals = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/MealPlans");
+        const response = await axios.get(`${BaseUrl}/api/MealPlans`);
         setMealPlans(response.data.Meals);
         // console.log("role", currentUserInfo.role)
         // console.log("user", TokenInfo.userId)
@@ -62,7 +58,7 @@ const AdminMeals = () => {
                 key={plan._id}
                 Plan_Name={plan.Plan_Name}
                 descriptionP={plan.descriptionP}
-                thumbnail={`http://localhost:3000/uploads/${plan.thumbnail}`}
+                thumbnail={`${BaseUrl}/uploads/${plan.thumbnail}`}
                 totalCalories={plan.totalCalories}
                 planId={plan._id}
               />

@@ -1,0 +1,14 @@
+{
+    "github.branchProtection": false,
+    "github.gitAuthentication": false,
+    "github.copilot.editor.enableAutoCompletions": true,
+    "gitlens.currentLine.pullRequests.enabled": true,
+    "gitlens.statusBar.pullRequests.enabled": true,
+    "gitlens.views.commits.pullRequests.enabled": false,
+    "gitlens.views.fileHistory.pullRequests.showForCommits": false,
+    "gitlens.views.fileHistory.pullRequests.enabled": false,
+    "gitlens.views.repositories.pullRequests.showForCommits": false,
+    "gitlens.views.repositories.pullRequests.showForBranches": false,
+    "git.enabled": false,
+    "git.enableSmartCommit": true
+}

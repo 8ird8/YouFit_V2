@@ -5,12 +5,13 @@ import axios from "axios";
 import Navbar from "./navbar";
 import { Alert, Avatar } from "@mui/material";
 import { useNotification } from "./useNotification";
+import Footer from "./footer";
 
 const Profile = () => {
   const { currentUserInfo, TokenInfo, fetchTokenInfo, fetchCurrentUser } =
     useContext(UserContext);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const {  message, type } = useNotification();
+  const { message, type } = useNotification();
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
@@ -72,7 +73,7 @@ const Profile = () => {
                         <Avatar
                           className="object-cover m-auto   rounded-full    ring-4 ring-lime-300 dark:ring-lime-500"
                           alt={currentUserInfo?.username}
-                          src={`http://localhost:3000/uploads/${currentUserInfo.avatar}`}
+                          src={`${baseUrl}/uploads/${currentUserInfo.avatar}`}
                           style={{ width: "150px", height: "150px" }}
                         />
                         <button
@@ -141,19 +142,6 @@ const Profile = () => {
                     </div>
                   </div>
 
-                  {/*<h2 className="mb-2  mt-4 text-md text-xl capitalize font-bold text-gray-700">
-                    Adresse :
-                  </h2>
-                   <div className="bg-lime-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 ">
-                    <p>{currentUserInfo.adresse}</p>
-                  </div>
-                  <h2 className="mb-2 mt-4 text-md text-xl capitalize font-bold text-gray-700">
-                    Phone :
-                  </h2>
-                  <div className="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 ">
-                    <p>{currentUserInfo.phone}</p>
-                  </div> */}
-
                   <Link to="/setting" className="flex justify-end">
                     <button
                       type="button"
@@ -168,6 +156,7 @@ const Profile = () => {
           </div>
         </main>
       </div>
+      <Footer />
     </div>
   );
 };

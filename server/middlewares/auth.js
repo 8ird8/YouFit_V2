@@ -26,10 +26,10 @@ const verifyAdmin = (req, res, next) => {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
       if (decoded.role && decoded.role === "Admins") {
-        req.user = decoded; // User is authenticated and authorized as an admin
+        req.user = decoded; 
         next();
       } else {
-        // User is not an admin
+        
         return res
           .status(403)
           .json({ error: "Access denied: Admin role required" });

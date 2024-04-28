@@ -31,6 +31,7 @@ import AdminMeals from "./adminMeals";
 import AdminWorkout from "./AdminWorkout";
 import AdminStore from "./AdminStore";
 import EmailSentNotification from "./SentEmail";
+import { useNotification } from "./useNotification";
 // import { CartProvider } from "./cartContext";
 
 interface TokenProps {
@@ -61,11 +62,13 @@ function CheckToken({ children }: TokenProps) {
 function CheckAdmin({ children }: TokenProps) {
   const { authAdmin, verifyAdmin } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
+  const {setNotification} = useNotification();
   const token = localStorage.getItem("token");
   useEffect(() => {
     if (token) {
       if (!authAdmin.checked) {
         verifyAdmin().finally(() => setIsLoading(false));
+        
       } else {
         setIsLoading(false);
       }
@@ -80,6 +83,7 @@ function CheckAdmin({ children }: TokenProps) {
   }
 
   if (!authAdmin.isAdmin) {
+    setNotification(" Your are not authorized, please login as an administrator", "warning")
     return <Navigate to="/Login" replace />;
   }
 

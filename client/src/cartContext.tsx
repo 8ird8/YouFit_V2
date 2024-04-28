@@ -26,12 +26,13 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({
   const [itemCount, setItemCount] = useState<number>(0);
   const { currentUserInfo, fetchCurrentUser, fetchTokenInfo } =
     useContext(UserContext);
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/api/mycart/${currentUserInfo.userId}`,
+          `${BaseUrl}]/api/mycart/${currentUserInfo.userId}`,
           {
             withCredentials: true,
           }

@@ -12,13 +12,12 @@ const Login = () => {
   const [visible, setVisible] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  // const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();
   const { fetchCurrentUser, fetchTokenInfo } = useContext(UserContext);
   const { authStatus, authAdmin } = useContext(AuthContext);
   const { verifySession, verifyAdmin } = useContext(AuthContext);
   const { setNotification, message, type } = useNotification();
-  // const isAdmin = authAdmin && authAdmin.isAdmin;
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
   const token = localStorage.getItem("token");
 
   const icon = visible ? "show" : "hide";
@@ -34,7 +33,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/login",
+        `${BaseUrl}/api/login`,
         {
           email,
           password,
@@ -42,7 +41,7 @@ const Login = () => {
         { withCredentials: true }
       );
 
-      // Check the response status and handle accordingly
+      
       if (res.status === 200) {
         console.log(res.data.token);
 
@@ -81,10 +80,7 @@ const Login = () => {
     }
   };
 
-  // const handleSignIn = async () => {
-
-  //   window.location.href = "http://localhost:3000/api/auth/google";
-  // };
+  
 
   const togglePass = () => {
     setVisible(!visible);

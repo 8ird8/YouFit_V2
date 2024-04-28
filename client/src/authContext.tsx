@@ -31,7 +31,7 @@ interface Props {
 const defaultState = {
   authStatus: { checked: false, isAuthenticated: false },
   authAdmin: { checked: false, isAdmin: false },
-  userInfo: { name: '', email: '', avatar: '' },
+  userInfo: { name: "", email: "", avatar: "" },
   verifySession: async () => {},
   verifyAdmin: async () => {},
   logout: async () => {},
@@ -45,10 +45,11 @@ export const AuthProvider = ({ children }: Props) => {
   );
   const [authAdmin, setAuthAdmin] = useState<AuthAdmin>(defaultState.authAdmin);
   const [userInfo, setUserInfo] = useState<UserInfo>(defaultState.userInfo);
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
 
   const verifySession = useCallback(async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/verify-session", {
+      const res = await axios.get(`${BaseUrl}/api/verify-session`, {
         withCredentials: true,
       });
       if (res.status === 200) {
@@ -69,7 +70,7 @@ export const AuthProvider = ({ children }: Props) => {
       return;
     }
     try {
-      const res = await axios.get("http://localhost:3000/api/verify-admin", {
+      const res = await axios.get(`${BaseUrl}/api/verify-admin`, {
         withCredentials: true,
       });
       if (res.status === 200) {
@@ -80,13 +81,12 @@ export const AuthProvider = ({ children }: Props) => {
     } catch (error) {
       setAuthAdmin({ checked: false, isAdmin: false });
     }
-  }, [token]); // Depend on `token` to trigger re-verification
+  }, [token]);
 
   useEffect(() => {
-    // Always try to verify session and admin status on component mount or token change
     const verifyAuth = async () => {
       await verifySession();
-      await verifyAdmin(); // Now directly following session verification
+      await verifyAdmin();
     };
 
     verifyAuth();
@@ -94,14 +94,14 @@ export const AuthProvider = ({ children }: Props) => {
 
   const logout = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/logout", {
+      const res = await axios.get(`${BaseUrl}/api/logout`, {
         withCredentials: true,
       });
       if (res.status === 200) {
         localStorage.removeItem("token");
         setAuthStatus({ checked: true, isAuthenticated: false });
         setAuthAdmin({ checked: true, isAdmin: false });
-        setUserInfo(defaultState.userInfo); 
+        setUserInfo(defaultState.userInfo);
       } else {
         console.error("An error occurred during logout");
       }
@@ -112,20 +112,24 @@ export const AuthProvider = ({ children }: Props) => {
 
   useEffect(() => {
     verifySession();
-    // Now verifyAdmin will only be called after verifySession potentially updates the state,
-    // and it checks internally if it needs to run.
   }, [verifySession]);
 
   useEffect(() => {
     if (authStatus.checked && authStatus.isAuthenticated) {
       verifyAdmin();
     }
-    // Dependency on authStatus.checked ensures verifyAdmin runs only after verifySession has potentially updated state.
   }, [authStatus.checked, authStatus.isAuthenticated, verifyAdmin]);
 
   return (
     <AuthContext.Provider
-      value={{ authStatus,userInfo, authAdmin, verifySession, verifyAdmin, logout }}
+      value={{
+        authStatus,
+        userInfo,
+        authAdmin,
+        verifySession,
+        verifyAdmin,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -13,7 +13,7 @@ const Card: React.FC<CardProps> = ({
   Plan_Name,
   descriptionP,
   thumbnail,
-  totalCalories,
+  
   planId,
 }) => {
   return (
@@ -32,7 +32,7 @@ const Card: React.FC<CardProps> = ({
           {" "}
           {/* This div ensures "Total Calories" is at the bottom */}
           <div className=" flex flex-col bottom-0 justify-end ">
-            <div>Total Calories: {totalCalories}</div>
+            {/* <div>Total Calories: {totalCalories}</div> */}
             {/* Link or button to view more details */}
           </div>
         </div>

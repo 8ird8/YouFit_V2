@@ -17,29 +17,7 @@ const WorkoutCard: React.FC<CardProps> = ({
   workoutId,
 }) => {
   return (
-    // <div className="card bg-base-100 p-2 shadow-xl">
-    //   <Link to={`/workoutPlan/${workoutId}`}>
-    //     <figure>
-    //       <img
-    //         src={thumbnail}
-    //         alt="workout Plan Thumbnail"
-    //         className=" rounded-xl h-96 w-full object-cover"
-    //       />
-    //     </figure>
-    //     <div className="card-body">
-    //       <h2 className="text-3xl font-bold">{nameOfprogram}</h2>
-    //       <p className=" whitespace-pre-wrap">{description}</p>
-    //       <div className="flex justify-end">
-    //         <div className=" bg-red-400 w-30  inline-block px-3 font-semibold py-1 rounded-2xl">
-    //           High {intensity}
-    //         </div>
-    //       </div>
-    //       <div className="card-actions justify-end">
-    //         {/* Link or button to view more details */}
-    //       </div>
-    //     </div>
-    //   </Link>
-    // </div>
+    
     <div className="workout_wrapper ">
       <div className="workout_card rounded-xl">
         <img className="workout_img rounded-xl" src={thumbnail} alt="" />

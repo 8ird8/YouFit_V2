@@ -26,6 +26,7 @@ const UpdateWorkoutPlan = () => {
   const [category, setCategory] = useState("");
   const [dailyExercises, setdailyExercises] = useState<DailyExercise[]>([]);
   const AssetsUrl = import.meta.env.VITE_ASSETS_URL;
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
   // const [exersiseNumber, setexersiseNumber] = useState(1);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -35,7 +36,7 @@ const UpdateWorkoutPlan = () => {
     const fetchWorkoutPlan = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/WorkoutPlans/${workoutId}`
+          `${BaseUrl}/api/WorkoutPlans/${workoutId}`
         );
         const planData = response.data.WorkoutDetail;
         setNameOfprogram(planData.nameOfprogram);
@@ -73,7 +74,7 @@ const UpdateWorkoutPlan = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/WorkoutPlans/update/${workoutId}`,
+        `${BaseUrl}/api/WorkoutPlans/update/${workoutId}`,
         formData,
         {
           headers: {
@@ -105,7 +106,7 @@ const UpdateWorkoutPlan = () => {
     if (isConfirmed) {
       try {
         await axios.delete(
-          `http://localhost:3000/api/WorkoutPlans/${workoutId}/day/${dayIndex}`
+          `${BaseUrl}/api/WorkoutPlans/${workoutId}/day/${dayIndex}`
         );
         let updatedDailyExercises = [...dailyExercises];
         updatedDailyExercises.splice(dayIndex, 1);
@@ -151,7 +152,7 @@ const UpdateWorkoutPlan = () => {
         if (!isTemporaryId) {
           // If exersise has a permanent ID from the database, proceed to delete it
           await axios.delete(
-            `http://localhost:3000/api/WorkoutPlans/${workoutId}/day/${dayIndex}/exersise/${exersiseId}`
+            `${BaseUrl}/api/WorkoutPlans/${workoutId}/day/${dayIndex}/exersise/${exersiseId}`
           );
         }
 
@@ -365,7 +366,6 @@ const UpdateWorkoutPlan = () => {
                           "intensity"
                         )
                       }
-                      // required
                     >
                       <option value=""> intensity</option>
                       <option value="Normal">Normal</option>

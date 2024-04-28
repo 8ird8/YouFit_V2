@@ -26,6 +26,7 @@ const Product = () => {
   const navigate = useNavigate();
   const { authAdmin } = useAuth();
   const isAdmin = authAdmin && authAdmin.isAdmin;
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     fetchCurrentUser();
@@ -36,7 +37,7 @@ const Product = () => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/product/${productId}`,
+          `${BaseUrl}/api/product/${productId}`,
           {
             withCredentials: true,
           }
@@ -74,7 +75,7 @@ const Product = () => {
   const toggleLike = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/product/${productId}/cart`,
+        `${BaseUrl}/api/product/${productId}/cart`,
         {},
         { withCredentials: true }
       );
@@ -94,15 +95,12 @@ const Product = () => {
 
   const handleDelete = async () => {
     try {
-      const res = await axios.delete(
-        `http://localhost:3000/api/delete/${productId}`,
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.delete(`${BaseUrl}/api/delete/${productId}`, {
+        withCredentials: true,
+      });
       if (res.status === 200) {
         console.log("delleted successfully");
-        navigate("/store")
+        navigate("/store");
       } else {
         console.error("You are not allowed");
       }
@@ -150,7 +148,7 @@ const Product = () => {
                 <div className="relative mb-6 lg:mb-10 lg:h-96">
                   <img
                     className="object-contain w-full lg:h-full"
-                    src={`http://localhost:3000/uploads/${mainImage}`}
+                    src={`${BaseUrl}/uploads/${mainImage}`}
                     alt="Product"
                   />
                 </div>
@@ -166,7 +164,7 @@ const Product = () => {
                       >
                         <img
                           className="object-contain w-full h-28"
-                          src={`http://localhost:3000/uploads/${image}`}
+                          src={`${BaseUrl}/uploads/${image}`}
                           alt="Product thumbnail"
                         />
                       </button>
@@ -183,7 +181,7 @@ const Product = () => {
                   </h2>
 
                   <p className="inline-block text-2xl font-semibold ">
-                    <span>{product?.product_Price} $</span>
+                    <span> Mad{product?.product_Price} </span>
                   </p>
                 </div>
                 <div className="mb-6">

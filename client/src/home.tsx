@@ -9,6 +9,7 @@ import Navbar from "./navbar";
 import { useNotification } from "./useNotification";
 import { Alert } from "@mui/material";
 import { useAuth } from "./useAuth";
+import Footer from "./footer";
 
 // Assume this is the path to your component
 interface CardProps {
@@ -25,7 +26,6 @@ const FetchMealPlans = () => {
     useContext(UserContext);
   const { verifySession } = useContext(AuthContext);
   const [weight, setWeight] = useState("");
-  // const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [activityLevel, setActivityLevel] = useState("");
   const [goal, setGoal] = useState("");
   const [level, setLevel] = useState("");
@@ -34,11 +34,12 @@ const FetchMealPlans = () => {
   const { authStatus } = useAuth();
   const isAuthenticated = authStatus && authStatus.isAuthenticated;
   const token = localStorage.getItem("token");
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     const fetchMealPlans = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/MealPlans");
+        const response = await axios.get(`${BaseUrl}/api/MealPlans`);
         setMealPlans(response.data.Meals);
         // console.log("role", currentUserInfo.role)
         // console.log("user", TokenInfo.userId)
@@ -48,7 +49,7 @@ const FetchMealPlans = () => {
     };
 
     fetchMealPlans();
-  }, []);
+  }, [ BaseUrl]);
 
   useEffect(() => {
     fetchCurrentUser();
@@ -56,7 +57,7 @@ const FetchMealPlans = () => {
     verifySession();
   }, [fetchCurrentUser, fetchTokenInfo, verifySession]);
 
-  const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!isAuthenticated) {
@@ -67,7 +68,7 @@ const FetchMealPlans = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:3000/api/user/update/${TokenInfo.userId}`,
+        `${BaseUrl}/api/user/update/${TokenInfo.userId}`,
         {
           weight,
           activityLevel,
@@ -77,11 +78,9 @@ const FetchMealPlans = () => {
         { withCredentials: true }
       );
 
-      // Assuming the successful response indicates the plan generation is ready
       if (res.status === 200) {
         navigate("/Generate/MealsPlans");
       } else {
-        // Handle unexpected responses
         setNotification(
           res.data.message || "An unexpected error occurred",
           "error"
@@ -121,7 +120,7 @@ const FetchMealPlans = () => {
               <p className="mb-12 text-[#f0f8ff] w-full mt-16 leading-relaxed">
                 Clean vs. Dirty Bulking Simply getting bigger is not better when
                 it comes to the ideal bulking strategy. Old-school bodybuilders
-                like Frank Zane and Vince Gironda—arguably two of the greatest
+                like Frank Zane and Vince Gironda —arguably two of the greatest
                 physiques of all time—would tell you that you look a lot more
                 impressive by adding five to eight pounds of fat-free muscle
                 mass than by slapping on 10 pounds of muscle with 20 pounds of
@@ -191,7 +190,7 @@ const FetchMealPlans = () => {
               </h2>
 
               <form
-                onSubmit={handleSumbit}
+                onSubmit={handleSubmit}
                 className="calc__form"
                 id="calc-form"
               >
@@ -212,7 +211,7 @@ const FetchMealPlans = () => {
                     <option value="">Level</option>
                     <option value="beginner">Beginner</option>
                     <option value="advanced">Advanced</option>
-                    <option value="intermidiare">Intermidiare</option>
+                    <option value="intermediate">Intermediate</option>
                   </select>
                 </div>
                 <div className="bg-transparent Activity">
@@ -249,7 +248,10 @@ const FetchMealPlans = () => {
               </form>
             </div>
             {token && TokenInfo.weight ? (
-              <Link className="btn w-full mt-2 calc__btn" to="/Generate/MealsPlans">
+              <Link
+                className="btn w-full mt-2 calc__btn"
+                to="/Generate/MealsPlans"
+              >
                 My Generating Meals
               </Link>
             ) : (
@@ -268,12 +270,13 @@ const FetchMealPlans = () => {
             key={plan._id}
             Plan_Name={plan.Plan_Name}
             descriptionP={plan.descriptionP}
-            thumbnail={`http://localhost:3000/uploads/${plan.thumbnail}`}
+            thumbnail={`${BaseUrl}/uploads/${plan.thumbnail}`}
             totalCalories={plan.totalCalories}
             planId={plan._id}
           />
         ))}
       </div>
+      <Footer/>
     </>
   );
 };

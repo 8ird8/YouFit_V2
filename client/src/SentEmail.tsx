@@ -6,9 +6,10 @@ import { Alert } from "@mui/material";
 
 const EmailSentNotification = () => {
   const { setNotification, message, type } = useNotification();
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
   const handleClick = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/resendEmail`, {
+      const res = await axios.get(`${BaseUrl}/api/resendEmail`, {
         withCredentials: true,
       });
       if (res.status === 200) {

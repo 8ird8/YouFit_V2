@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useAuth } from "./useAuth";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useNotification } from "./useNotification";
 
 interface CardProps {
@@ -28,19 +28,17 @@ const Card: React.FC<CardProps> = ({
   const isAdmin = authAdmin && authAdmin.isAdmin;
   const { setNotification } = useNotification();
   const AssetsUrl = import.meta.env.VITE_ASSETS_URL;
-  
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
+
   // const { authStatus } = useAuth();
   // const isAuthenticated = authStatus && authStatus.isAuthenticated;
   const navigate = useNavigate();
 
   const handleDelete = async () => {
     try {
-      const res = await axios.delete(
-        `http://localhost:3000/api/delete/${productId}`,
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.delete(`${BaseUrl}/api/delete/${productId}`, {
+        withCredentials: true,
+      });
       if (res.status === 200) {
         console.log("delleted successfully");
       } else {
@@ -52,36 +50,10 @@ const Card: React.FC<CardProps> = ({
     }
   };
 
-  // const handleIncartClick = async () => {
-  //   if (isAuthenticated) {
-  //     try {
-  //       const res = await axios.post(
-  //         `http://localhost:3000/api/product/${productId}/cart`,
-
-  //         { withCredentials: true }
-  //       );
-
-  //       if (res.status === 200) {
-  //         if (!Incart) {
-  //           setIncart(true);
-  //         } else {
-  //           setIncart(false);
-  //           // window.location.reload();
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error("Error toggling like:", error);
-  //     }
-  //   } else {
-  //     console.log("User is not authenticated, redirecting to login.");
-  //     navigate("/login"); // Redirect user to login page
-  //   }
-  // };
-
   const toggleLike = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:3000/api/product/${productId}/cart`,
+        `${BaseUrl}/api/product/${productId}/cart`,
         {},
         { withCredentials: true }
       );
@@ -116,7 +88,6 @@ const Card: React.FC<CardProps> = ({
             />
 
             <div className="card-badge">New</div>
-            
 
             <ul className="card-action-list">
               <li className="card-action-item">
@@ -126,9 +97,17 @@ const Card: React.FC<CardProps> = ({
                   onClick={toggleLike}
                 >
                   {!Incart ? (
-                    <img src={`${AssetsUrl}/cart-add.png`} alt="" className="w-8 h-8" />
+                    <img
+                      src={`${AssetsUrl}/cart-add.png`}
+                      alt=""
+                      className="w-8 h-8"
+                    />
                   ) : (
-                    <img src={`${AssetsUrl}/cart-check.png`} alt="" className="w-8 h-8" />
+                    <img
+                      src={`${AssetsUrl}/cart-check.png`}
+                      alt=""
+                      className="w-8 h-8"
+                    />
                   )}
                 </button>
 
@@ -142,7 +121,11 @@ const Card: React.FC<CardProps> = ({
                   aria-labelledby="card-label-1"
                 >
                   <a href={link} target="_blank" rel="noopener noreferrer">
-                    <img src={`${AssetsUrl}/buy.png`} alt="buy" className="w-8 h-8" />
+                    <img
+                      src={`${AssetsUrl}/buy.png`}
+                      alt="buy"
+                      className="w-8 h-8"
+                    />
                   </a>
                 </button>
 
@@ -152,14 +135,22 @@ const Card: React.FC<CardProps> = ({
               </li>
               <li className="card-action-item">
                 <button
+                  onClick={() => {
+                    if (isAdmin) {
+                      navigate(`/product/${productId}`);
+                    } else {
+                      window.open(link, "_blank", "noopener,noreferrer");
+                    }
+                  }}
                   className="card-action-btn"
-                  aria-labelledby="card-label-1"
+                  aria-label={isAdmin ? "Edit Product" : "View Details"}
                 >
-                  <Link to={`/product/${productId}`} rel="noopener noreferrer">
-                    <img src={`${AssetsUrl}/vision.png`} alt="buy" className="w-8 h-8" />
-                  </Link>
+                  <img
+                    src={`${AssetsUrl}/vision.png`}
+                    alt="Navigate"
+                    className="w-8 h-8 "
+                  />
                 </button>
-
                 <div className="card-action-tooltip" id="card-label-1">
                   View
                 </div>
@@ -171,7 +162,11 @@ const Card: React.FC<CardProps> = ({
                     aria-labelledby="card-label-1"
                     onClick={handleDelete}
                   >
-                    <img src={`${AssetsUrl}/trash.png`} alt="" className="w-8 h-8" />
+                    <img
+                      src={`${AssetsUrl}/trash.png`}
+                      alt=""
+                      className="w-8 h-8"
+                    />
                   </button>
 
                   <div className="card-action-tooltip" id="card-label-1">

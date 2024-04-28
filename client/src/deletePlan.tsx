@@ -10,6 +10,7 @@ interface DeleteButtonProps {
 const DeleteButton: React.FC<DeleteButtonProps> = ({ planId }) => {
   const navigate = useNavigate();
   const AssetsUrl = import.meta.env.VITE_ASSETS_URL;
+  const BaseUrl = import.meta.env.VITE_BASE_URL;
   const { setNotification } = useNotification();
 
   const handleDelete = async () => {
@@ -19,7 +20,7 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ planId }) => {
     if (isConfirmed) {
       try {
         const res = await axios.delete(
-          `http://localhost:3000/api/MealsPlan/${planId}`,
+          `${BaseUrl}/api/MealsPlan/${planId}`,
           {
             withCredentials: true,
           }

@@ -13,6 +13,8 @@ const AddMealPlan = () => {
   const { setNotification } = useNotification();
   const { message, type } = useNotification();
   const AssetsUrl = import.meta.env.VITE_ASSETS_URL;
+  const BasesUrl = import.meta.env.VITE_BASE_URL;
+
 
   const [dailyMeals, setDailyMeals] = useState([
     {
@@ -132,7 +134,7 @@ const AddMealPlan = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/Meal/add",
+        `${BasesUrl}/api/Meal/add`,
         formData,
         {
           headers: {

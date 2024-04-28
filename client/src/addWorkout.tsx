@@ -13,6 +13,8 @@ const AddWorkoutPlan = () => {
   const AssetsUrl = import.meta.env.VITE_ASSETS_URL;
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [ExNumber, setExNumber] = useState(1);
+  const BasesUrl = import.meta.env.VITE_BASE_URL;
+
 
   const [dailyExercises, setDailyExercises] = useState([
     {
@@ -108,7 +110,7 @@ const AddWorkoutPlan = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/add/workoutPlan",
+        `{${BasesUrl}/api/add/workoutPlan`,
         formData,
         {
           headers: {
