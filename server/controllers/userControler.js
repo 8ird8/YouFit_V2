@@ -259,7 +259,7 @@ const loginUser = async (req, res) => {
         res.cookie("token", token, {
           httpOnly: true,
           secure: true, // use secure flag in production
-          sameSite: "strict",
+          // sameSite: "strict",
           maxAge: 9600000,
         });
         res.status(200).json({
