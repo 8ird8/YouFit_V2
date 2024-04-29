@@ -49,7 +49,7 @@ const Profile = () => {
 
   return (
     <div className=" justify-between">
-      <div className="mt-10 fixed w-full">
+      <div className="mt-20 fixed w-full">
         {message && <Alert severity={type}>{message}</Alert>}
       </div>
       <div className=" ">
