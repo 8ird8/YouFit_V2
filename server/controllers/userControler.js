@@ -400,7 +400,7 @@ const TokenInfo = (req, res) => {
   try {
     const decoded = jwt.verify(
       token,
-      "arrrrrryskldmùdùfnhgzfdcevnkorp^rfnfbbfvdvd"
+      process.env.JWT_SECRET_KEY,
     );
     currentUserId = decoded.userId;
     avatar = decoded.avatar;
