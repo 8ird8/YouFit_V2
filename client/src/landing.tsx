@@ -272,7 +272,10 @@ const Landing = () => {
                     smaller or contracted.
                   </p>
 
-                  <Link to="/workoutPlans" className="program__btn">
+                  <Link
+                    to={`${token ? "/FworkoutPlans" : "/workoutPlans"}`}
+                    className="program__btn"
+                  >
                     <img src="run.png" alt="program button" />
                   </Link>
                 </article>
@@ -288,7 +291,10 @@ const Landing = () => {
                     period of time.
                   </p>
 
-                  <Link to="/workoutPlans" className="program__btn">
+                  <Link
+                    to={`${token ? "/FworkoutPlans" : "/workoutPlans"}`}
+                    className="program__btn"
+                  >
                     <img src="run.png" alt="program button" />
                   </Link>
                 </article>
@@ -304,7 +310,10 @@ const Landing = () => {
                     exercises, proper nutrition, and adequate rest.
                   </p>
 
-                  <Link to="/workoutPlans" className="program__btn">
+                 <Link
+                    to={`${token ? "/FworkoutPlans" : "/workoutPlans"}`}
+                    className="program__btn"
+                  >
                     <img src="run.png" alt="program button" />
                   </Link>
                 </article>
@@ -320,14 +329,17 @@ const Landing = () => {
                     with weight plates.
                   </p>
 
-                  <Link to="/workoutPlans" className="program__btn">
+                  <Link
+                    to={`${token ? "/FworkoutPlans" : "/workoutPlans"}`}
+                    className="program__btn"
+                  >
                     <img src="run.png" alt="program button" />
                   </Link>
                 </article>
               </div>
               <div className="section-data relative -top-16  ">
                 <Link
-                  to="/workoutPlans"
+                  to={`${token ? "/FworkoutPlans" : "/workoutPlans"}`}
                   className="hover:bg-lime-400  h-20 py-12 w-20 px-1   bg-black text-white  border text-lg   hover:-black rounded-full "
                 >
                   Explore More
