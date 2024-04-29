@@ -390,9 +390,24 @@ const resendEmail = async (req, res) => {
 };
 
 const logoutUser = (req, res) => {
-  res.clearCookie("token");
-
-  res.status(200).json({ success: true, message: "Logout successful" });
+  try {
+    res.cookie("token", "", {
+      httpOnly: true,
+      secure: true, // use secure flag in production
+      sameSite: "None",
+      maxAge: 0,
+    });
+    res.status(200).json({
+      success: true,
+      type: "success",
+      message: "Logout successful",
+    });
+  } catch (err) {
+    console.error("Error during logout:", err);
+    res
+      .status(500)
+      .json({ success: false, type: "error", message: "error server" });
+  }
 };
 
 const TokenInfo = (req, res) => {
