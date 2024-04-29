@@ -15,6 +15,7 @@ const Landing = () => {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [message, setMessage] = useState("");
+  const token = localStorage.getItem("token");
 
   // Register GSAP plugins
   useEffect(() => {
@@ -190,19 +191,21 @@ const Landing = () => {
 
                 <i className="bi bi-x nav__close" id="nav-close"></i>
               </div>
-              <div>
-                <ul className="mt-2">
-                  <li>
-                    <Link
-                      to="/login"
-                      className="bg-lime-400 px-8  py-2 border  text-black rounded-full "
-                      id="log-btn"
-                    >
-                      Sign Up
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+              {!token && (
+                <div>
+                  <ul className="mt-2">
+                    <li>
+                      <Link
+                        to="/login"
+                        className="bg-lime-400 px-8  py-2 border  text-black rounded-full "
+                        id="log-btn"
+                      >
+                        Sign Up
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              )}
 
               <i className="bi bi-list nav__toggle" id="nav-toggle"></i>
             </nav>
