@@ -5,6 +5,7 @@ import axios from "axios";
 import { UserContext } from "./userContext";
 import Navbar from "./navbar";
 import { useFilter } from "./useFilter";
+import Footer from "./footer";
 
 interface Product {
   product_Name: string;
@@ -191,6 +192,10 @@ const MyCart = () => {
           </div>
         </div>
       </div>
+      <div className= "mt-20">
+         <Footer/>
+      </div>
+     
     </div>
   );
 };
