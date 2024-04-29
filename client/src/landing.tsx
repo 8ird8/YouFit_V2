@@ -224,13 +224,15 @@ const Landing = () => {
                     Join 1000’S Of People Who Have Lost Weight, Reversed Disease
                     And Feel Their Best Today.
                   </p>
-                  <Link
-                    to="/register"
-                    ref={btnRef}
-                    className="bg-lime-400 font-bold   rounded-full  w-60 h-60  mt-8  flex py-24  justify-center    hover:bg-black hover:text-lime-400  border  text-2xl   text-black  "
-                  >
-                    JOINs <span className="text-white"> ssNOW</span>
-                  </Link>
+                  {!token && (
+                    <Link
+                      to="/register"
+                      ref={btnRef}
+                      className="bg-lime-400 font-bold   rounded-full  w-60 h-60  mt-8  flex py-24  justify-center    hover:bg-black hover:text-lime-400  border  text-2xl   text-black  "
+                    >
+                      JOINs <span className="text-white"> ssNOW</span>
+                    </Link>
+                  )}
                 </div>
 
                 <div className="home__images">
