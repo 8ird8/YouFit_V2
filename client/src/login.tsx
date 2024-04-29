@@ -51,6 +51,7 @@ const Login = () => {
         await fetchTokenInfo();
         await fetchCurrentUser();
         console.log(" auth :" + authStatus);
+        console.log(" auth :" );
         if (authStatus.checked && authAdmin.checked) {
           if (res.data.data.role === "Admins") {
             navigate("/dashboard");
