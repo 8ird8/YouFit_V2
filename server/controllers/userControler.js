@@ -108,7 +108,7 @@ const registerUser = async (req, res) => {
         res.cookie("token", token, {
           httpOnly: true,
           secure: true, // use secure flag in production
-          sameSite: "strict",
+          sameSite: "None",
           maxAge: 9600000,
         });
 
@@ -177,7 +177,7 @@ const loginUser = async (req, res) => {
             role: data.role,
             gender: data.gender,
           },
-          "arrrrrryskldmùdùfnhgzfdcevnkorp^rfnfbbfvdvd",
+          process.env.JWT_SECRET_KEY,
           { expiresIn: "7h" }
         );
         if (!data.isVerified) {
@@ -259,7 +259,7 @@ const loginUser = async (req, res) => {
         res.cookie("token", token, {
           httpOnly: true,
           secure: true, // use secure flag in production
-          // sameSite: "strict",
+          sameSite: "None",
           maxAge: 9600000,
         });
         res.status(200).json({
@@ -300,7 +300,7 @@ const resendEmail = async (req, res) => {
   try {
     const decoded = jwt.verify(
       token,
-      "arrrrrryskldmùdùfnhgzfdcevnkorp^rfnfbbfvdvd"
+      process.env.JWT_SECRET_KEY,
     );
     const userId = decoded.userId;
     const data = await User.findById(userId);
