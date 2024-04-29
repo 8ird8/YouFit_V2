@@ -160,7 +160,7 @@ const Setting = () => {
                       </label>
                        <select
                           onChange={(e) => setGender(e.target.value)}
-                          className="w-full rounded-md  border-none text-gray-400  bg-black p-4 border "
+                          className="bg-lime-50 border text-black border-lime-300 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 "
                         >
                           <option className="bg-input text-black" value={gender}>
                             {gender}
