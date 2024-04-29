@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import WorkoutExCard from "./WorkoutExCard";
 import { useAuth } from "./useAuth";
 import Navbar from "./navbar";
+import { UserContext } from "./userContext";
+import { AuthContext } from "./authContext";
 
 interface Exercise {
   name_Ex: string;
@@ -36,6 +38,8 @@ const WorkoutPlanDetails = () => {
   const BaseUrl = import.meta.env.VITE_BASE_URL;
   const { authAdmin } = useAuth();
   const isAdmin = authAdmin && authAdmin.isAdmin;
+  const { fetchTokenInfo, fetchCurrentUser } = useContext(UserContext);
+  const { verifySession } = useContext(AuthContext);
   
 
   useEffect(() => {
@@ -74,6 +78,13 @@ const WorkoutPlanDetails = () => {
       // Handle error or show a notification to the user
     }
   };
+  
+    useEffect(() => {
+      fetchCurrentUser();
+      fetchTokenInfo();
+      verifySession();
+    }, [fetchCurrentUser, fetchTokenInfo, verifySession]);
+
 
   if (!workoutPlan) {
     return (
