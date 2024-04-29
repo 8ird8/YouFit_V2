@@ -45,7 +45,7 @@ const Login = () => {
       if (res.status === 200) {
         console.log(res.data.token);
 
-        localStorage.setItem("token", res.data.token || null);
+        localStorage.setItem("token", res.data.token );
         await verifySession();
         await verifyAdmin();
         await fetchTokenInfo();
