@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import WorkoutExCard from "./WorkoutExCard";
 import { useAuth } from "./useAuth";
-// import DeleteButton from "./deletePlan";
+import Navbar from "./navbar";
 
 interface Exercise {
   name_Ex: string;
@@ -84,6 +84,10 @@ const WorkoutPlanDetails = () => {
   }
 
   return (
+    <>
+     <div >
+      <Navbar/>
+    </div>
     <div className=" mx-auto p-4   bg-gray-950 text-white">
       <div className="flex px-20 justify-between">
         <button onClick={() => navigate(-1)}>
@@ -144,6 +148,7 @@ const WorkoutPlanDetails = () => {
         </div>
       </div>
     </div>
+    </>    
   );
 };
 
