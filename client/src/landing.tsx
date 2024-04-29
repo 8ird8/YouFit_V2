@@ -205,10 +205,10 @@ const Landing = () => {
                     </li>
                   </ul>
                 </div>
-                {token && ( <div className= "w-24"></div>)}
+                
               )}
 
-              <i className="bi bi-list nav__toggle" id="nav-toggle"></i>
+              {token && <div className=" w-20"></div>}
             </nav>
           </div>
         </header>
