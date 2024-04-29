@@ -22,7 +22,7 @@ interface CardProps {
 
 const FetchMealPlans = () => {
   const [mealPlans, setMealPlans] = useState<CardProps[]>([]);
-  const { TokenInfo, fetchTokenInfo, fetchCurrentUser } =
+ const { currentUserInfo, TokenInfo, fetchTokenInfo, fetchCurrentUser } =
     useContext(UserContext);
   const { verifySession } = useContext(AuthContext);
   const [weight, setWeight] = useState("");
@@ -247,7 +247,7 @@ const FetchMealPlans = () => {
                 <p className="calc__message" id="calc-message"></p>
               </form>
             </div>
-            {token && TokenInfo.weight ? (
+            {token && currentUserInfo.weight ? (
               <Link
                 className="btn w-full mt-2 calc__btn"
                 to="/Generate/MealsPlans"
