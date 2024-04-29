@@ -88,7 +88,7 @@ const WorkoutPlanDetails = () => {
      <div >
       <Navbar/>
     </div>
-    <div className=" mx-auto p-4   bg-gray-950 text-white">
+    <div className=" mx-auto p-4 mt-20  bg-gray-950 text-white">
       <div className="flex px-20 justify-between">
         <button onClick={() => navigate(-1)}>
           <img
