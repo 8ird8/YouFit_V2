@@ -43,14 +43,14 @@ const Login = () => {
 
       
       if (res.status === 200) {
-        console.log(res.data.token);
+        console.log( "Token :" + res.data.token);
 
         localStorage.setItem("token", res.data.token );
         await verifySession();
         await verifyAdmin();
         await fetchTokenInfo();
         await fetchCurrentUser();
-        console.log(authStatus);
+        console.log(" auth :" + authStatus);
         if (authStatus.checked && authAdmin.checked) {
           if (res.data.data.role === "Admins") {
             navigate("/dashboard");
