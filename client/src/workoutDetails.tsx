@@ -124,6 +124,7 @@ const WorkoutPlanDetails = () => {
       </div>
 
       <div className="mt-10">
+        <h1 className="text-white">{workoutPlan.nameOfprogram}</h1>
         <img
           src={`${BaseUrl}/uploads/${workoutPlan.thumbnail_W}`}
           alt="thumbnail"
