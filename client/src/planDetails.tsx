@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
@@ -6,6 +6,8 @@ import DeleteButton from "./deletePlan";
 import { useAuth } from "./useAuth";
 import Footer from "./footer";
 import Navbar from "./navbar";
+import { UserContext } from "./userContext";
+import { AuthContext } from "./authContext";
 
 interface Meal {
   title: string;
@@ -39,6 +41,8 @@ const MealPlanDetails = () => {
   const isAdmin = authAdmin && authAdmin.isAdmin;
   const navigate = useNavigate();
   const BaseUrl = import.meta.env.VITE_BASE_URL;
+  const { fetchTokenInfo, fetchCurrentUser } = useContext(UserContext);
+  const { verifySession } = useContext(AuthContext);
 
 
   useEffect(() => {
@@ -55,6 +59,12 @@ const MealPlanDetails = () => {
 
     fetchMealPlanDetails();
   }, [planId ,BaseUrl]);
+
+  useEffect(() => {
+    fetchCurrentUser();
+    fetchTokenInfo();
+    verifySession();
+  }, [fetchCurrentUser, fetchTokenInfo, verifySession]);
 
   if (!mealPlan) {
     return (
