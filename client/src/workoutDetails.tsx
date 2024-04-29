@@ -6,6 +6,7 @@ import { useAuth } from "./useAuth";
 import Navbar from "./navbar";
 import { UserContext } from "./userContext";
 import { AuthContext } from "./authContext";
+import Footer from "./footer";
 
 interface Exercise {
   name_Ex: string;
@@ -160,6 +161,7 @@ const WorkoutPlanDetails = () => {
         </div>
       </div>
     </div>
+      <Footer/>
     </>    
   );
 };
