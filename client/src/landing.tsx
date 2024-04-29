@@ -485,21 +485,25 @@ const Landing = () => {
                   </div>
                 </div>
               </div>
-              <div className="section-data mt-6">
-                <h2 className="section-title">
-                  <span>Join Us For Hepling you Achiving </span> <br /> YOur
-                  Goal
-                </h2>
-              </div>
-              <div className=" flex justify-center items-center ">
-                <Link
-                  to="/register"
-                  ref={btnRef}
-                  className="bg-lime-400 font-bold   rounded-full  w-60 h-60  mt-8  flex py-24  justify-center    hover:bg-black hover:text-lime-400  border  text-2xl   text-black  "
-                >
-                  JOINs <span className="text-white"> ssNOW</span>
-                </Link>
-              </div>
+              {!token && (
+                <>
+                  <div className="section-data mt-6">
+                    <h2 className="section-title">
+                      <span>Join Us For Hepling you Achiving </span> <br /> YOur
+                      Goal
+                    </h2>
+                  </div>
+                  <div className=" flex justify-center items-center ">
+                    <Link
+                      to="/register"
+                      ref={btnRef}
+                      className="bg-lime-400 font-bold   rounded-full  w-60 h-60  mt-8  flex py-24  justify-center    hover:bg-black hover:text-lime-400  border  text-2xl   text-black  "
+                    >
+                      JOINs <span className="text-white"> ssNOW</span>
+                    </Link>
+                  </div>
+                </>
+              )}
             </div>
           </section>
           <section className="section pricing mt-20" id="bmi">
