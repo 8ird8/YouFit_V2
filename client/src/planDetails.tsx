@@ -5,6 +5,7 @@ import React from "react";
 import DeleteButton from "./deletePlan";
 import { useAuth } from "./useAuth";
 import Footer from "./footer";
+import Navbar from "./navbar";
 
 interface Meal {
   title: string;
