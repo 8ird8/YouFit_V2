@@ -69,7 +69,7 @@ const MealPlanDetails = () => {
       <div >
         <Navbar/>
       </div>
-    <div className="max-w-6xl mx-auto p-4">
+    <div className="max-w-6xl mt-20 mx-auto p-4">
       <div className="flex justify-between">
         <button onClick={() => navigate(-1)}>
           <img
