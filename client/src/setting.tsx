@@ -158,12 +158,18 @@ const Setting = () => {
                       <label className="block mb-2 text-sm  font-medium text-gray-300 ">
                         Gender :
                       </label>
-                      <input
-                        type="text"
-                        className="bg-lime-50 border text-black border-lime-300   text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5 "
-                        onChange={(e) => setGender(e.target.value)}
-                        value={gender}
-                      />
+                      <select
+                          onChange={(e) => setGender(e.target.value)}
+                          className="w-full rounded-full  border-none text-gray-400  bg-transparent p-4 border "
+                        >
+                          <option className="bg-input text-black" value="">
+                            Gender
+                          </option>
+                          <option value={gender}>{gender}</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                          {/* <option value="">Rather Not Say</option> */}
+                        </select>
                     </div>
                     <div className="mb-2 sm:mb-2">
                       <label className="block mb-2 text-sm font-medium text-gray-300 ">
@@ -192,7 +198,7 @@ const Setting = () => {
                       <span className="mr-2 ml-2 mt-2 text-gray-300 font-semibold ">
                         Avatar
                       </span>
-                      <img src="images.png" alt="image" className="w-8 h-8" />
+                      <img  src={`${AssetsUrl}/images.png`} alt="image" className="w-8 h-8" />
                       <input
                         type="file"
                         className="hidden"
