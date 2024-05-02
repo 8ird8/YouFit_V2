@@ -71,7 +71,7 @@ const Navbar = () => {
           </a>
 
           <div
-            className="my-auto rounded-full bg-gris2 border border-gris4 px-6 w-1/2 py-2"
+            className="my-auto rounded-full hidden lg:block md:block bg-gris2 border border-gris4 px-6 w-1/2 py-2"
             id="nav-menu"
           >
             <ul className="flex justify-between  w-full ">
